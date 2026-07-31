@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlurShield Settings</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      width: 340px;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-shield {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #475569;
+      transition: .2s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .control-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #e2e8f0;
+    }
+
+    .range-group {
+      margin-top: 6px;
+    }
+
+    .range-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    select {
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .badge-status.disabled {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title-group">
+      <div class="icon-shield">🛡️</div>
+      <div>
+        <h1>BlurShield</h1>
+        <div id="statusBadge" class="badge-status">● Active</div>
+      </div>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="masterToggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Blur Intensity & Effect</div>
+    <div class="range-group">
+      <div class="range-header">
+        <span>Blur Radius</span>
+        <span id="intensityVal">25px</span>
+      </div>
+      <input type="range" id="intensityRange" min="5" max="50" value="25">
+    </div>
+    <div class="control-row" style="margin-top: 12px;">
+      <span class="control-label">Effect Style</span>
+      <select id="effectTypeSelect">
+        <option value="blur">Gaussian Blur</option>
+        <option value="pixelate">Pixelated Privacy</option>
+        <option value="grayscale">Grayscale Blur</option>
+        <option value="darken">Dark Shield</option>
+      </select>
+    </div>
+    <div class="control-row" style="margin-top: 10px;">
+      <span class="control-label">Unblur Trigger</span>
+      <select id="triggerSelect">
+        <option value="hover">Hover / Mouseover</option>
+        <option value="click">Click / Alt-Click</option>
+        <option value="never">Strict Always Blurred</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Target Rules</div>
+    <div class="control-row">
+      <span class="control-label">Logos & Brand Badges</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="logosToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span class="control-label">YouTube Thumbnails</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="ytThumbToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span class="control-label">Google / Browser Images</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="imagesToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span class="control-label">Playing Videos</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="videoPlayToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span class="control-label">Paused Videos</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="videoPauseToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Shortcut: <b>Alt+Shift+B</b></span>
+    <span>v1.0.0</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

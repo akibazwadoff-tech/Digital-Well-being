@@ -1,0 +1,144 @@
+/* BlurShield Content Script Styling - Manifest V3 */
+
+:root {
+  --blurshield-amount: 25px;
+  --blurshield-transition: filter 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+/* Master Enabled Guard */
+body.blurshield-enabled .blurshield-target {
+  transition: var(--blurshield-transition) !important;
+  will-change: filter;
+}
+
+/* Standard Blur Effect */
+body.blurshield-enabled.blurshield-fx-blur .blurshield-target {
+  filter: blur(var(--blurshield-amount)) !important;
+}
+
+/* Pixelate / Low-Fi Privacy Effect */
+body.blurshield-enabled.blurshield-fx-pixelate .blurshield-target {
+  filter: contrast(150%) brightness(80%) blur(calc(var(--blurshield-amount) * 0.8)) !important;
+}
+
+/* Grayscale Effect */
+body.blurshield-enabled.blurshield-fx-grayscale .blurshield-target {
+  filter: grayscale(100%) blur(var(--blurshield-amount)) !important;
+}
+
+/* Darken Privacy Shield */
+body.blurshield-enabled.blurshield-fx-darken .blurshield-target {
+  filter: brightness(15%) blur(calc(var(--blurshield-amount) * 0.5)) !important;
+}
+
+/* Unblur Hover Behavior */
+body.blurshield-enabled.blurshield-unblur-hover .blurshield-target:hover,
+body.blurshield-enabled.blurshield-unblur-hover .blurshield-wrapper:hover .blurshield-target {
+  filter: blur(0px) grayscale(0%) brightness(100%) !important;
+}
+
+/* Click-Unblurred override class */
+.blurshield-click-unblurred {
+  filter: none !important;
+}
+
+/* YouTube Specific Selectors */
+body.blurshield-enabled.blurshield-yt-thumb-on ytd-thumbnail,
+body.blurshield-enabled.blurshield-yt-thumb-on #thumbnail,
+body.blurshield-enabled.blurshield-yt-thumb-on .ytd-thumbnail,
+body.blurshield-enabled.blurshield-yt-thumb-on ytd-rich-grid-media #thumbnail img,
+body.blurshield-enabled.blurshield-yt-thumb-on ytd-compact-video-renderer #thumbnail img,
+body.blurshield-enabled.blurshield-yt-thumb-on ytd-grid-video-renderer #thumbnail img,
+body.blurshield-enabled.blurshield-yt-thumb-on ytd-reel-item-renderer #thumbnail img,
+body.blurshield-enabled.blurshield-yt-thumb-on yt-img-shadow img {
+  filter: blur(var(--blurshield-amount)) !important;
+  transition: var(--blurshield-transition) !important;
+}
+
+body.blurshield-enabled.blurshield-yt-thumb-on.blurshield-unblur-hover ytd-thumbnail:hover,
+body.blurshield-enabled.blurshield-yt-thumb-on.blurshield-unblur-hover #thumbnail:hover,
+body.blurshield-enabled.blurshield-yt-thumb-on.blurshield-unblur-hover ytd-rich-grid-media:hover #thumbnail img,
+body.blurshield-enabled.blurshield-yt-thumb-on.blurshield-unblur-hover ytd-compact-video-renderer:hover #thumbnail img {
+  filter: blur(0px) !important;
+}
+
+/* YouTube Avatars & Site Logos */
+body.blurshield-enabled.blurshield-yt-avatar-on #avatar,
+body.blurshield-enabled.blurshield-yt-avatar-on yt-img-shadow#avatar,
+body.blurshield-enabled.blurshield-yt-avatar-on .ytd-channel-avatar,
+body.blurshield-enabled.blurshield-logos-on img[class*="logo" i],
+body.blurshield-enabled.blurshield-logos-on img[id*="logo" i],
+body.blurshield-enabled.blurshield-logos-on svg[class*="logo" i],
+body.blurshield-enabled.blurshield-logos-on svg[id*="logo" i],
+body.blurshield-enabled.blurshield-logos-on img[alt*="logo" i],
+body.blurshield-enabled.blurshield-logos-on img[src*="logo" i],
+body.blurshield-enabled.blurshield-logos-on .logo,
+body.blurshield-enabled.blurshield-logos-on #logo,
+body.blurshield-enabled.blurshield-logos-on ytd-topbar-logo-renderer,
+body.blurshield-enabled.blurshield-logos-on a#logo,
+body.blurshield-enabled.blurshield-logos-on .brand-logo,
+body.blurshield-enabled.blurshield-logos-on img.avatar,
+body.blurshield-enabled.blurshield-logos-on img.channel-icon {
+  filter: blur(calc(var(--blurshield-amount) * 0.7)) !important;
+  transition: var(--blurshield-transition) !important;
+}
+
+body.blurshield-enabled.blurshield-logos-on.blurshield-unblur-hover img[class*="logo" i]:hover,
+body.blurshield-enabled.blurshield-logos-on.blurshield-unblur-hover svg[class*="logo" i]:hover,
+body.blurshield-enabled.blurshield-logos-on.blurshield-unblur-hover .logo:hover,
+body.blurshield-enabled.blurshield-logos-on.blurshield-unblur-hover #logo:hover,
+body.blurshield-enabled.blurshield-logos-on.blurshield-unblur-hover #avatar:hover {
+  filter: blur(0px) !important;
+}
+
+/* Google Images & Browser Images */
+body.blurshield-enabled.blurshield-img-on img,
+body.blurshield-enabled.blurshield-img-on picture,
+body.blurshield-enabled.blurshield-img-on .rg_i,
+body.blurshield-enabled.blurshield-img-on .YQ4gaf,
+body.blurshield-enabled.blurshield-img-on .Q4Luyd {
+  filter: blur(var(--blurshield-amount)) !important;
+  transition: var(--blurshield-transition) !important;
+}
+
+body.blurshield-enabled.blurshield-img-on.blurshield-unblur-hover img:hover,
+body.blurshield-enabled.blurshield-img-on.blurshield-unblur-hover picture:hover {
+  filter: blur(0px) !important;
+}
+
+/* HTML5 Video Elements */
+body.blurshield-enabled.blurshield-video-playing-on video:not(.blurshield-click-unblurred),
+body.blurshield-enabled.blurshield-video-paused-on video.blurshield-paused:not(.blurshield-click-unblurred) {
+  filter: blur(var(--blurshield-amount)) !important;
+  transition: var(--blurshield-transition) !important;
+}
+
+body.blurshield-enabled.blurshield-video-unblur-hover video:hover {
+  filter: blur(0px) !important;
+}
+
+/* Badge Indicator Overlay */
+.blurshield-badge-container {
+  position: relative !important;
+}
+
+.blurshield-badge {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  color: #38bdf8 !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  font-family: ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
